@@ -88,10 +88,10 @@ class MonkeyBananaEnvironmentTask:
         
         if not self.state.is_monkey_up:
             level_0 = [" "] * (self.room_size * 2 - 2)
-            level_0[max(self.state.box_position * 2 - 1, 0)] = '▅▅'
+            level_0[max(self.state.box_position * 2 - 1, 0)] = '██'
         else:
             level_0 = [" "] * (self.room_size * 2 - 1)
-            level_0[self.state.box_position * 2] = '▅▅'
+            level_0[self.state.box_position * 2] = '██'
         
            
         if not(self.state.is_monkey_up):
