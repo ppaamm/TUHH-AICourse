@@ -76,25 +76,45 @@ class MonkeyBananaEnvironmentTask:
         return self.state.banana_position == self.state.box_position
     
     def visualize(self):
-        ceiling = [" "] * self.room_size
-        ceiling[self.state.banana_position] = 'b'
-        
-        up_box = [" "] * self.room_size
+        level_2 = [" "] * (self.room_size * 2 - 1)
+        level_2[self.state.banana_position * 2] = '🍌'
+
+
         if self.state.is_monkey_up:
-            up_box[self.state.box_position] = 'm'
+            level_1 = [" "] * (self.room_size * 2 - 1)
+            level_1[self.state.box_position * 2] = '🐒'
+        else: 
+            level_1 = [" "] * (self.room_size * 2)
         
-        box_level = [" "] * self.room_size
-        box_level[self.state.box_position] = 'x'
+        if not self.state.is_monkey_up:
+            level_0 = [" "] * (self.room_size * 2 - 2)
+        else:
+            level_0 = [" "] * (self.room_size * 2 - 1)
+        
+        level_0[max(self.state.box_position * 2 - 1, 0)] = '▅▅'
+           
         if not(self.state.is_monkey_up):
-            if self.state.box_position == 0: box_level[1] = 'm'
-            else: box_level[0] = 'm'
+            if self.state.box_position == 0:
+                level_0[1] = '🐒'
+            else:
+                level_0[0] = '🐒'
         
-        floor = 'x' * self.room_size
-        print(''.join(ceiling))
-        print(''.join(up_box))
-        print(''.join(box_level))
-        print(''.join(floor))
-    
+        box_top =    ["─" * self.room_size * 2]
+        box_bottom = ['─' * self.room_size * 2]
+        
+        box_top =    ['┌'] + box_top +    ['┐']
+        level_2 =    ['|'] + level_2 +    ['|']
+        level_1 =    ['|'] + level_1 +    ['|']
+        level_0 =    ['|'] + level_0 +    ['|']
+        box_bottom = ['└'] + box_bottom + ['┘']
+
+        print('\n')
+        print('   ', ''.join(box_top))
+        print('   ', ''.join(level_2))
+        print('   ', ''.join(level_1))
+        print('   ', ''.join(level_0))
+        print('   ', ''.join(box_bottom))
+        print('\n')
     
     
     def performance(self):
