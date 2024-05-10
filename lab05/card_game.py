@@ -37,7 +37,7 @@ class CardState(GameState):
         if (
             self.player_turn == 1 and action == CardAction.PLAY
         ):  # P2 can choose a card from the deck
-            if len(new_deck) > 1:
+            if len(new_deck) > 0:
                 new_card = new_deck[0]
                 new_deck = new_deck[1:]
                 new_cards[1].add(new_card)
@@ -62,9 +62,10 @@ class CardState(GameState):
                 return (-self.alpha, self.alpha)
 
 class CardGame(Game):
-    def __init__(self, deck, k, alpha):
+    def __init__(self, deck: List[int], k: int, alpha: int):
         assert len(deck) >= 2*k
         cards = [deck[:k], deck[k:(2*k)]]
+        deck = deck[(2*k):]
         self.state = CardState(0, deck, alpha, [None, None], cards)
     
     def perform_action(self, action: CardAction):
