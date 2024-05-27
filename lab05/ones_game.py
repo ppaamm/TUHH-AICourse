@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 from game import Game, GameState, solve
 
 N_ROUNDS = 8
@@ -6,7 +6,7 @@ N_ROUNDS = 8
 
 class OnesState(GameState):
     def __init__(self, player_turn: int, history: List[int]):
-        self.player_turn = player_turn
+        super().__init__(player_turn)
         self.history = history
 
     def available_actions(self):
@@ -18,9 +18,9 @@ class OnesState(GameState):
     def is_goal(self):
         return len(self.history) >= 2 * N_ROUNDS
 
-    def utilities(self):
+    def utilities(self) -> Tuple[int]:
         if not self.is_goal():
-            return None
+            return (0, 0)
         i = 0
         hists = [[], []]
         for a in self.history:
@@ -47,17 +47,17 @@ class OnesState(GameState):
 
 class OnesGame(Game):
     def __init__(self):
-        self.state = OnesState(0, [])
-        self.done = False
+        super().__init__(OnesState(0, []))
 
     def perform_action(self, action: int):
         self.state = self.state.result(action)
         if self.state.is_goal():
             self.done = True
 
+
 game = OnesGame()
 while not game.done:
-    a = solve(game.state)
-    print(f"Player {game.state.player_turn + 1}'s action: {a}")
-    game.perform_action(a)
+    ac = solve(game.state)
+    print(f"Player {game.state.player_turn + 1}'s action: {ac}")
+    game.perform_action(ac)
 print("Utilities:", game.state.utilities())

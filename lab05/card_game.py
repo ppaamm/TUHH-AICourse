@@ -47,7 +47,7 @@ class CardState(GameState):
         )
 
     def is_goal(self) -> bool:
-        return not (None in self.choices)
+        return not None in self.choices
 
     def utilities(self) -> Tuple[int]:
         if self.choices[0] == CardAction.REFUSE:
@@ -61,12 +61,13 @@ class CardState(GameState):
             else:
                 return (-self.alpha, self.alpha)
 
+
 class CardGame(Game):
     def __init__(self, deck: List[int], k: int, alpha: int):
-        assert len(deck) >= 2*k
-        cards = [deck[:k], deck[k:(2*k)]]
-        deck = deck[(2*k):]
-        self.state = CardState(0, deck, alpha, [None, None], cards)
-    
+        assert len(deck) >= 2 * k
+        cards = [deck[:k], deck[k : (2 * k)]]
+        deck = deck[(2 * k) :]
+        super().__init__(CardState(0, deck, alpha, [None, None], cards))
+
     def perform_action(self, action: CardAction):
         self.state = self.state.result(action)
