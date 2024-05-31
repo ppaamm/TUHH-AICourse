@@ -1,8 +1,7 @@
 from __future__ import annotations
 from enum import Enum
 from abc import ABC, abstractmethod
-from typing import Union, Tuple, List
-import math
+from typing import Union, Tuple, Collection
 
 
 class EnumAction(Enum):
@@ -13,7 +12,7 @@ class OtherAction(ABC):
     pass
 
 
-Action = Union[OtherAction, OtherAction, int]
+Action = Union[EnumAction, OtherAction, int]
 
 
 class GameState(ABC):
@@ -25,7 +24,7 @@ class GameState(ABC):
         pass
 
     @abstractmethod
-    def available_actions(self) -> List[Action]:
+    def available_actions(self) -> Collection[Action]:
         pass
 
     @abstractmethod
@@ -33,12 +32,12 @@ class GameState(ABC):
         pass
 
     @abstractmethod
-    def utilities(self) -> int:
+    def utilities(self) -> Tuple[int]:
         pass
 
 
 class Game(ABC):
-    def __init__(self, state):
+    def __init__(self, state: GameState):
         self.state = state
         self.done = False
 
@@ -49,6 +48,4 @@ class Game(ABC):
 
 def solve(state: GameState) -> int:
     # TODO: Question 8 => The method returns the optimal action for the current player
-    return
-
-
+    pass
