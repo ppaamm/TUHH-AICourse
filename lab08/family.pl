@@ -1,0 +1,21 @@
+father(philip, charles).
+father(philip, anne).
+father(philip, andrew).
+father(philip, edward).
+father(charles, william).
+father(charles, harry).
+father(william, george).
+father(william, charlotte).
+father(william, louis). 
+father(harry, archie).
+
+mother(elizabeth, charles).
+mother(elizabeth, anne).
+mother(elizabeth, andrew).
+mother(elizabeth, edward).
+mother(diana, william).
+mother(diana, harry).
+mother(catherine, george).
+mother(catherine, charlotte).
+mother(catherine, louis). 
+mother(meghan, archie).
